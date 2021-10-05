@@ -371,7 +371,7 @@ function startRace(id) {
     ...defaultFetchOpts()
   })
     .then((res) => res.json())
-    .catch((err) => console.log("Problem with getRace request::", err));
+    .catch((err) => console.log("Problem with startRace request::", err));
 }
 
 function accelerate(id) {
