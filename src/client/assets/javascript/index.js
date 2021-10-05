@@ -4,7 +4,8 @@
 var store = {
   track_id: undefined,
   player_id: undefined,
-  race_id: undefined
+  race_id: undefined,
+  tracks: undefined
 };
 
 // We need our javascript to wait until the DOM is loaded
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function onPageLoad() {
   try {
     getTracks().then((tracks) => {
+      store.tracks = tracks;
       const html = renderTrackCards(tracks);
       renderAt("#tracks", html);
     });
@@ -238,7 +240,7 @@ function renderCountdown(count) {
 function renderRaceStartView(track, racers) {
   return `
 		<header>
-			<h1>Race: ${track.name}</h1>
+			<h1>Race: ${store.tracks[store.track_id].name}</h1>
 		</header>
 		<main id="two-columns">
 			<section id="leaderBoard">
