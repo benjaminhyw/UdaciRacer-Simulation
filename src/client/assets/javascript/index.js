@@ -157,7 +157,10 @@ function handleSelectTrack(target) {
   // add class selected to current target
   target.classList.add("selected");
 
+  // BEFLORE TODO: Remove TODO word when done, leave descriptive comment
   // TODO - save the selected track id to the store
+  store.track_id = target.id;
+  console.log(store);
 }
 
 function handleAccelerate() {
