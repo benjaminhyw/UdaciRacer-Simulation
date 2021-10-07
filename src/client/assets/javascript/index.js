@@ -94,6 +94,7 @@ async function handleCreateRace() {
   await runCountdown();
 
   // TODO - call the async function startRace
+  await startRace(store.race_id);
 
   // TODO - call the async function runRace
 }
@@ -374,12 +375,12 @@ function getRace(id) {
   // GET request to `${SERVER}/api/races/${id}`
 }
 
-function startRace(id) {
-  return fetch(`${SERVER}/api/races/${id}/start`, {
+async function startRace(id) {
+  return fetch(`${SERVER}/api/races/${id - 1}/start`, {
     method: "POST",
     ...defaultFetchOpts()
   })
-    .then((res) => res.json())
+    .then((res) => res)
     .catch((err) => console.log("Problem with startRace request::", err));
 }
 
