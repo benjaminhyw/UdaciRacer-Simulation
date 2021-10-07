@@ -81,10 +81,13 @@ async function handleCreateRace() {
   renderAt("#race", renderRaceStartView());
 
   // TODO - Get player_id and track_id from the store
+  const { player_id, track_id } = store;
 
   // const race = TODO - invoke the API call to create the race, then save the result
-
-  // TODO - update the store with the race id
+  const race = await createRace(player_id, track_id).then((res) => res);
+  store.race_id = race.ID;
+  console.log(store);
+  console.log(race);
 
   // The race has been created, now start the countdown
   // TODO - call the async function runCountdown
@@ -346,7 +349,7 @@ function getRacers() {
     .catch((err) => console.log("Problem with getRacers request::", err));
 }
 
-function createRace(player_id, track_id) {
+async function createRace(player_id, track_id) {
   player_id = parseInt(player_id);
   track_id = parseInt(track_id);
   const body = { player_id, track_id };
