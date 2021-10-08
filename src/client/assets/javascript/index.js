@@ -385,14 +385,8 @@ async function getRace(id) {
     method: "GET",
     ...defaultFetchOpts(),
     dataType: "jsonp"
-    // body: JSON.stringify(body)
   })
-    .then((res) => {
-      console.log("inside getRace");
-      // updatestore
-
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch((err) => console.log("Problem with getRace request::", err));
 }
 
