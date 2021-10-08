@@ -76,25 +76,29 @@ async function delay(ms) {
 }
 // ^ PROVIDED CODE ^ DO NOT REMOVE
 
-// This async function controls the flow of the race, add the logic and error handling
+// This async function controls the flow of the race
 async function handleCreateRace() {
-  // render starting UI
-  renderAt("#race", renderRaceStartView());
+  try {
+    // render starting UI
+    renderAt("#race", renderRaceStartView());
 
-  // Get player_id and track_id from the store
-  const { player_id, track_id } = store;
+    // Get player_id and track_id from the store
+    const { player_id, track_id } = store;
 
-  // invoke the API call to create the race, then save the result
-  const race = await createRace(player_id, track_id).then((res) => res);
-  store.race_id = race.ID;
+    // invoke the API call to create the race, then save the result
+    const race = await createRace(player_id, track_id).then((res) => res);
+    store.race_id = race.ID;
 
-  // The race has been created, now start the countdown
-  // Call the async function runCountdown
-  await runCountdown();
-  // Call the async function startRace
-  await startRace(store.race_id);
-  // Call the async function runRace
-  await runRace(store.race_id);
+    // The race has been created, now start the countdown
+    // Call the async function runCountdown
+    await runCountdown();
+    // Call the async function startRace
+    await startRace(store.race_id);
+    // Call the async function runRace
+    await runRace(store.race_id);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function runRace(raceID) {
@@ -189,9 +193,13 @@ function handleSelectTrack(target) {
 }
 
 async function handleAccelerate() {
-  console.log("accelerate button clicked");
-  // Invoke the API call to accelerate
-  await accelerate(store.race_id);
+  try {
+    console.log("accelerate button clicked");
+    // Invoke the API call to accelerate
+    await accelerate(store.race_id);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // HTML VIEWS ------------------------------------------------
