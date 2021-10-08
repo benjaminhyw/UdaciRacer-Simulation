@@ -87,8 +87,6 @@ async function handleCreateRace() {
   // invoke the API call to create the race, then save the result
   const race = await createRace(player_id, track_id).then((res) => res);
   store.race_id = race.ID;
-  console.log(store);
-  console.log(race);
 
   // The race has been created, now start the countdown
   // Call the async function runCountdown
@@ -108,8 +106,6 @@ async function runRace(raceID) {
           store.current_race = res;
         });
 
-        console.log(store);
-
         switch (store.current_race.status) {
           case "in-progress":
             // if the race info status property is "in-progress", update the leaderboard by calling:
@@ -122,7 +118,7 @@ async function runRace(raceID) {
             // if the race info status property is "finished", run the following:
             clearInterval(raceInterval); // to stop the interval from repeating
             renderAt("#race", resultsView(store.current_race.positions)); // to render the results view
-            reslove(); // resolve the promise
+            resolve(); // resolve the promise
           default:
             renderAt(
               "#leaderBoard",
@@ -174,7 +170,6 @@ function handleSelectPodRacer(target) {
 
   // Save the selected racer to the store
   store.player_id = parseInt(target.id);
-  console.log(store);
 }
 
 function handleSelectTrack(target) {
@@ -191,7 +186,6 @@ function handleSelectTrack(target) {
 
   // save the selected track id to the store
   store.track_id = parseInt(target.id);
-  console.log(store);
 }
 
 async function handleAccelerate() {
@@ -354,7 +348,6 @@ function getTracks() {
     method: "GET",
     ...defaultFetchOpts(),
     dataType: "jsonp"
-    // body: JSON.stringify(body)
   })
     .then((res) => res.json())
     .catch((err) => console.log("Problem with getTracks request::", err));
@@ -366,7 +359,6 @@ function getRacers() {
     method: "GET",
     ...defaultFetchOpts(),
     dataType: "jsonp"
-    // body: JSON.stringify(body)
   })
     .then((res) => res.json())
     .catch((err) => console.log("Problem with getRacers request::", err));
